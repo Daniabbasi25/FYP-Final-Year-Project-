@@ -1,0 +1,147 @@
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import React from 'react';
+import BackgroundImage from '../../components/BackgroundImage';
+import styles from './style';
+import TextInputfield from '../../components/TextInputfield';
+import PrimaryButton from '../../components/PrimaryButton';
+import Login from '../Login';
+import ShopKeeperdashboardScreen from '../ShopkeeperdashboardScreen';
+const Registration = ({navigation}) => {
+  const [name, setName] = React.useState('');
+  const [shopname, setshopname] = React.useState('');
+  const [shopaddress, setshopaddress] = React.useState('');
+  const [shopphoneno, setshopephoneno] = React.useState('');
+  const [shopemail, setshopemail] = React.useState('');
+  const [shoppassword, setshoppassword] = React.useState('');
+
+  const handleChange = e => {
+    setName(e);
+  };
+
+  const handlechangeshopname = e => {
+    setshopname(e);
+  };
+
+  const handleChangeshopaddress = e => {
+    setshopaddress(e);
+  };
+
+  const handleChangeshopphoneno = e => {
+    setshopephoneno(e);
+  };
+
+  const handleChangeshopemail = e => {
+    setshopemail(e);
+  };
+
+  const handleChangeshoppassword = e => {
+    setshoppassword(e);
+  };
+
+  const handleSubmit = () => {
+    if (
+      name.trim() &&
+      shopname.trim() &&
+      shopaddress.trim() &&
+      shopemail.trim() &&
+      shoppassword.trim()
+    ) {
+      navigation.navigate(ShopKeeperdashboardScreen);
+      const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          shopkeeper_name: name,
+          shop_name: shopname,
+          shop_address: shopaddress,
+          shop_phoneno: shopphoneno,
+          shopkeeper_profilepicturaddress: null,
+          shopkeeper_email: shopemail,
+          shopkeeper_password: shoppassword,
+        }),
+      };
+      fetch(
+        'http://192.168.1.113/apiv2/api/Shopkeeper/Addshopkeeper',
+        requestOptions,
+      )
+        .then(response => {
+          if (!response.ok) {
+            throw Error('Check your connection');
+          } else {
+            alert('Sign Up Successfull');
+          }
+          response.json();
+        })
+        .then(data => console.log('---response', data))
+        .catch(err => {
+          alert(err.message);
+        });
+    } else {
+      alert('Plz fill complete form');
+    }
+  };
+  return (
+    <View style={styles.container}>
+      <BackgroundImage />
+      <ScrollView>
+        <View style={{marginTop: 90}}>
+          <Text style={styles.heading}>Register </Text>
+        </View>
+
+        {/* <Text style={styles.as}>as </Text>
+        <Text style={styles.heading}> Shopkeeper</Text> */}
+
+        <View>
+          <TextInputfield
+            onChangeText={handleChange}
+            placeholder="Name"
+            secure={false}
+            // value={newText}
+          />
+
+          <TextInputfield
+            placeholder="Email"
+            secure={false}
+            onChangeText={handleChangeshopemail}
+          />
+          <TextInputfield
+            placeholder="Shop Name"
+            secure={false}
+            onChangeText={handlechangeshopname}
+          />
+          <TextInputfield
+            placeholder="Shop Address"
+            secure={false}
+            onChangeText={handleChangeshopaddress}
+          />
+          <TextInputfield
+            placeholder="Password"
+            secure={true}
+            onChangeText={handleChangeshoppassword}
+          />
+        </View>
+
+        <PrimaryButton
+          txt="Register"
+          nav="ShopKeeperdashboardScreen"
+          onPress={handleSubmit}
+        />
+        {/* <TouchableOpacity onPress={handleSubmit}>
+        <Text style={{color: '#FEC000'}}>register</Text>
+      </TouchableOpacity> */}
+        <Text style={{textAlign: 'center'}}>Already have Account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate(Login)}>
+          <Text style={{color: '#FEC000', textAlign: 'center'}}>Login</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  );
+};
+
+export default Registration;
