@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: width / 2,
     height: height / 6,
-    backgroundColor: '#EEF4FF',
+    backgroundColor: '#F0F4F8',
     marginTop: 20,
   },
   icon: {
@@ -20,7 +20,30 @@ const styles = StyleSheet.create({
   },
   maincontainer: {
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F2C83F',
+    flex: 1,
+  },
+  inputcontainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    width: width,
+    paddingLeft: 10,
+    paddingRight: 10,
+    // flex: 4,
+    marginTop: 7,
+  },
+  inputfield: {
+    backgroundColor: '#F0F4F8',
+    borderRadius: 10,
+    width: width / 1.5,
+    height: height / 18,
+    marginLeft: 4,
+  },
+  lable: {
+    color: 'black',
+    fontSize: 15,
   },
 });
 export default styles;

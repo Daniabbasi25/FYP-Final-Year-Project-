@@ -6,6 +6,7 @@ import {
   Platform,
   Alert,
   Image,
+  TextInput,
 } from 'react-native';
 import React, {useState} from 'react';
 import TextInputfield from '../../components/TextInputfield';
@@ -16,7 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PrimaryButton from '../../components/PrimaryButton';
 import {androidCameraPermission} from '../../permissions';
 import {CheckBox, Input} from 'react-native-elements';
-import axios from 'axios';
+
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import API from '../../API';
 const ProductUpload = () => {
@@ -28,6 +29,7 @@ const ProductUpload = () => {
   const [category, setcategory] = useState('');
   const [productname, setproductname] = useState('');
   const [quantity, setquantity] = useState('');
+  const [price, setprice] = useState('');
   const [imagelink, setimage] = useState();
   const [isimage, setisimage] = useState(false);
 
@@ -168,32 +170,47 @@ const ProductUpload = () => {
             {/* <Image source={require(imagelink)} /> */}
             <Desingimage />
           </TouchableOpacity>
-          <Input
-            placeholder="Product Name"
-            value={productname}
-            // secure={false}
-            onChangeText={text => setproductname(text)}
-          />
+          <View style={styles.inputcontainer}>
+            <Text style={styles.lable}>Product Name</Text>
+            <TextInput
+              // placeholder="Product Name"
+              value={productname}
+              // secure={false}
+              onChangeText={text => setproductname(text)}
+              style={styles.inputfield}
+            />
+          </View>
+
           {/* <Input
             placeholder="Category"
             value={productname}
             // secure={false}
             onChangeText={text => setproductname(text)}
           /> */}
-          <Input
-            placeholder="Quantity"
-            value={quantity}
-            onChangeText={text => setquantity(text)}
-            // secure={false}
-            // onChangeText={handleChangeshopaddress}
-          />
-          <Input
-            placeholder="Price"
-            value={quantity}
-            onChangeText={text => setquantity(text)}
-            // secure={false}
-            // onChangeText={handleChangeshopaddress}
-          />
+          <View style={styles.inputcontainer}>
+            <Text style={styles.lable}>Quantity</Text>
+            <TextInput
+              // placeholder="Quantity"
+              value={quantity}
+              onChangeText={text => setquantity(text)}
+              keyboardType="numeric"
+              style={styles.inputfield}
+              // secure={false}
+              // onChangeText={handleChangeshopaddress}
+            />
+          </View>
+          <View style={styles.inputcontainer}>
+            <Text style={styles.lable}>Price</Text>
+            <TextInput
+              // placeholder="Price"
+              value={price}
+              onChangeText={text => setprice(text)}
+              keyboardType="numeric"
+              style={styles.inputfield}
+              // secure={false}
+              // onChangeText={handleChangeshopaddress}
+            />
+          </View>
           <View
             style={{
               flexDirection: 'row',
