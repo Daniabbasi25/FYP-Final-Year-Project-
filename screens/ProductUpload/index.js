@@ -18,7 +18,7 @@ import {androidCameraPermission} from '../../permissions';
 import {CheckBox, Input} from 'react-native-elements';
 import axios from 'axios';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import API from '../../API';
 const ProductUpload = () => {
   const [kg, setkg] = useState(false);
   const [dozn, setdozn] = useState(false);
@@ -116,7 +116,7 @@ const ProductUpload = () => {
       });
 
       console.log('form data', formdata);
-      const res = fetch('http://192.168.1.113/apiv2/api/Product/Upload', {
+      const res = fetch(`http://${API}/apiv2/api/Product/Upload`, {
         method: 'post',
         body: formdata,
         headers: {
@@ -142,7 +142,7 @@ const ProductUpload = () => {
   const Desingimage = () => {
     if (isimage) {
       return (
-        <View>
+        <View style={styles.image}>
           <Image
             // source={require('')}
             source={{uri: imagelink}}
@@ -153,9 +153,9 @@ const ProductUpload = () => {
       );
     } else {
       return (
-        <View>
-          <Icon name="add-circle-outline" style={styles.icon} size={30}></Icon>
-          <Text>Upload Image</Text>
+        <View style={styles.image}>
+          <Icon name="add-circle-outline" style={styles.icon} size={80}></Icon>
+          {/* <Text>Upload Image</Text> */}
         </View>
       );
     }
@@ -164,7 +164,7 @@ const ProductUpload = () => {
     <View style={styles.maincontainer}>
       <ScrollView>
         <View style={styles.container}>
-          <TouchableOpacity style={styles.image} onPress={onselect}>
+          <TouchableOpacity onPress={onselect}>
             {/* <Image source={require(imagelink)} /> */}
             <Desingimage />
           </TouchableOpacity>

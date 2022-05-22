@@ -10,8 +10,8 @@ import React, {useState, useEffect} from 'react';
 import Order from '../Order';
 import styles from './styles';
 import Orders from './Orders';
-
-const orderurl = 'http://192.168.1.113/apiv1/api/Orders/Allorders';
+import API from '../../API';
+const orderurl = `http://${API}/apiv1/api/Orders/Allorders`;
 const RecentOrder = () => {
   const [isloading, setloading] = useState(true);
   const [result, orderlist] = useState([]);
@@ -31,9 +31,9 @@ const RecentOrder = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={Orders}
+        data={result.slice(0, 3)}
         // keyExtractor={({id}, index) => order_id}
-        // data={this.state.itemList.slice(0, 2)}
+        //  data={this.state.itemList.slice(0, 30)}
         renderItem={({item}) => <Order ord={item} />}
         // renderItem={({item})=>{
         //   <Text>

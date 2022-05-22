@@ -11,6 +11,7 @@ import styles from './style';
 import TextInputfield from '../../components/TextInputfield';
 import PrimaryButton from '../../components/PrimaryButton';
 import Login from '../Login';
+import API from '../../API';
 import ShopKeeperdashboardScreen from '../ShopkeeperdashboardScreen';
 const Registration = ({navigation}) => {
   const [name, setName] = React.useState('');
@@ -66,10 +67,7 @@ const Registration = ({navigation}) => {
           shopkeeper_password: shoppassword,
         }),
       };
-      fetch(
-        'http://192.168.1.113/apiv2/api/Shopkeeper/Addshopkeeper',
-        requestOptions,
-      )
+      fetch(`http://${API}/apiv2/api/Shopkeeper/Addshopkeeper`, requestOptions)
         .then(response => {
           if (!response.ok) {
             throw Error('Check your connection');

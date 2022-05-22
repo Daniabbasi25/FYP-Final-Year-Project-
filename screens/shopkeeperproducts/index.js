@@ -11,7 +11,7 @@ import Products from '../../components/Product/Products';
 const Shopkeeperproducts = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ShopkeeperHeader />
+      {/* <ShopkeeperHeader /> */}
 
       <FlatList
         data={Products.slice(0, 20)}

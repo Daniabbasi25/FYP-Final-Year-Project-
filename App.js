@@ -17,15 +17,25 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
+        // screenOptions={{
+        //   headerShown: false,
+        // }}
+        headerMode="screen"
         initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Registration" component={Registration} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Registration"
+          component={Registration}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="ShopKeeperdashboardScreen"
           component={ShopkeeperTab}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="shopkeeperproducts"

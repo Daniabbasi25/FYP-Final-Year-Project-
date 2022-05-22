@@ -7,7 +7,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import API from '../../API';
 const image = require('../../assets/images/splash.jpg');
 
 const Login = ({navigation}) => {
@@ -16,7 +16,7 @@ const Login = ({navigation}) => {
   const [result, shopkeeperdata] = React.useState([]);
   const handleLogin = () => {
     fetch(
-      `http://192.168.43.29/apiv2/api/User/UserLogin?email=${email}&password=${password}`,
+      `http://${API}/apiv2/api/User/UserLogin?email=${email}&password=${password}`,
       {
         method: 'GET',
         headers: {
@@ -32,12 +32,14 @@ const Login = ({navigation}) => {
         response.json();
       })
       .then(resp => {
+        alert(resp);
         shopkeeperdata(resp);
-        alert(result);
+        alert('the reslt is' + result);
       })
       .then(data => {
-        alert('Login successfull');
+        alert('Login successfull' + data);
         // console.log(data);
+
         navigation.navigate('ShopKeeperdashboardScreen', data);
       })
       .catch(err => {
