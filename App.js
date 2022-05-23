@@ -4,13 +4,15 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Login from './screens/Login';
 import Registration from './screens/Registration';
-
+import UpdateProduct from './screens/UpdateProduct';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ShopKeeperdashboardScreen from './screens/ShopkeeperdashboardScreen';
 import ShopkeeperTab from './screens/ShopkeeperTab';
 import Shopkeeperproducts from './screens/shopkeeperproducts';
 import RegisterAs from './screens/RegisterAs';
+import ProductUpload from './screens/ProductUpload';
+import CustomerRegistration from './screens/CustomerRegistration';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -47,9 +49,17 @@ const App = () => {
         <Stack.Screen
           name="RegisterAs"
           component={RegisterAs}
-          screenOptions={{
-            headerShown: false,
-          }}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="CustomerRegister"
+          component={CustomerRegistration}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="UpdateProduct"
+          component={UpdateProduct}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>

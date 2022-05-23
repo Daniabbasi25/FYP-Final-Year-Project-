@@ -45,5 +45,16 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 15,
   },
+  uploadbutton: {
+    backgroundColor: '#5eba7d',
+    paddingHorizontal: 60,
+    paddingVertical: 10,
+    marginTop: 40,
+    borderRadius: 40,
+  },
+  buttontext: {
+    fontSize: 30,
+    color: '#FFF',
+  },
 });
 export default styles;

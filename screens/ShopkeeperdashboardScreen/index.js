@@ -7,7 +7,8 @@ import Product from '../../components/Product';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const ShopKeeperdashboardScreen = ({navigation}) => {
+const ShopKeeperdashboardScreen = ({navigation, route}) => {
+  // const {d} = route.params;
   return (
     <View style={styles.container}>
       {/* <ShopkeeperHeader /> */}

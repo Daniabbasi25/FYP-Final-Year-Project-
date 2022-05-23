@@ -75,7 +75,7 @@ const ProductUpload = () => {
     }).then(image => {
       console.log(image);
       alert(image);
-      setimage(image);
+      setimage(image.path);
       setisimage(true);
       imageupload(image.path);
     });
@@ -127,7 +127,7 @@ const ProductUpload = () => {
       })
         .then(response => {
           if (!response.ok) {
-            throw Error('Check your connection');
+            throw Error(response);
           } else {
             alert('image upload Successfull');
           }
@@ -261,11 +261,14 @@ const ProductUpload = () => {
             />
           </View>
 
-          <PrimaryButton
+          {/* <PrimaryButton
             txt="Upload"
             // nav="ShopKeeperdashboardScreen"
             onPress={handleupload}
-          />
+          /> */}
+          <TouchableOpacity style={styles.uploadbutton} onPress={handleupload}>
+            <Text style={styles.buttontext}>Upload</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
