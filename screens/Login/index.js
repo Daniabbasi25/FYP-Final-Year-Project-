@@ -16,7 +16,7 @@ const Login = ({navigation}) => {
   const [result, shopkeeperdata] = React.useState([]);
   const handleLogin = () => {
     fetch(
-      `http://${API}/apiv2/api/User/UserLogin?email=${email}&password=${password}`,
+      `http://${API}/API/api/User/Login?email=${email}&password=${password}`,
       {
         method: 'GET',
         headers: {
@@ -24,23 +24,24 @@ const Login = ({navigation}) => {
         },
       },
     )
-      .then(response => {
-        if (!response.ok) {
-          throw Error('Incorrect Email or Password');
-        } else {
-        }
-        response.json();
-      })
+      .then(response => response.json())
+      // .then(resp => {
+      //   alert('the response is' + resp);
+      //   // shopkeeperdata(resp);
+      //   // alert('the reslt is' + result);
+      // })
       .then(resp => {
-        alert(resp);
-        shopkeeperdata(resp);
-        alert('the reslt is' + result);
-      })
-      .then(data => {
-        alert('Login successfull' + data);
-        // console.log(data);
-
-        navigation.navigate('ShopKeeperdashboardScreen', data);
+        // if (condition) {
+        // }
+        if (resp.Role == 'seller') {
+          alert(' shopkeeper Login successfull' + resp);
+          // console.log(data);
+          navigation.navigate('ShopKeeperdashboardScreen', resp);
+        } else if (resp.Role == 'customer') {
+          alert(' Customer Login successfull' + resp);
+        } else {
+          alert(' Delivery Boy Login successfull' + resp);
+        }
       })
       .catch(err => {
         alert(err.message);

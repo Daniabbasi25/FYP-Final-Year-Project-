@@ -118,7 +118,7 @@ const ProductUpload = () => {
       });
 
       console.log('form data', formdata);
-      const res = fetch(`http://${API}/apiv2/api/Product/Upload`, {
+      const res = fetch(`http://${API}/API/api/Product/Upload`, {
         method: 'post',
         body: formdata,
         headers: {

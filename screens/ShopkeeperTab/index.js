@@ -8,12 +8,16 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import ProductUpload from '../ProductUpload';
 import ShopkeeperHeader from '../../components/ShopkeeperHeader';
 import ShopkeeperProfileScreen from '../ShopkeeperProfileScreen';
+import UserContext from '../../Context/User/UserContext';
 
 // const myIcon = <Icon name="shop" size={30} />;
 const Tab = createBottomTabNavigator();
-const ShopkeeperTab = ({route}) => {
+const ShopkeeperTab = ({route, navigation}) => {
+  const {shopkeeperid} = route.params;
   console.log('reoutes', route.params);
+  const id = JSON.stringify(shopkeeperid);
   return (
+    // <UserContext>
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
@@ -33,7 +37,7 @@ const ShopkeeperTab = ({route}) => {
         tabBarActiveTintColor: 'orange',
         tabBarInactiveTintColor: 'gray',
         // headerShown: false,
-        header: () => <ShopkeeperHeader />,
+        header: () => <ShopkeeperHeader id={id} />,
       })}>
       <Tab.Screen name="Home" component={ShopKeeperdashboardScreen} />
       <Tab.Screen name="productupload" component={ProductUpload} />
@@ -43,6 +47,7 @@ const ShopkeeperTab = ({route}) => {
         component={ShopkeeperProfileScreen}
       />
     </Tab.Navigator>
+    // </UserContext>
   );
 };
 

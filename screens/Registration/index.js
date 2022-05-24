@@ -20,6 +20,7 @@ const Registration = ({navigation}) => {
   const [shopphoneno, setshopephoneno] = React.useState('');
   const [shopemail, setshopemail] = React.useState('');
   const [shoppassword, setshoppassword] = React.useState('');
+  const [userid, setuserid] = React.useState();
 
   const handleChange = e => {
     setName(e);
@@ -53,33 +54,51 @@ const Registration = ({navigation}) => {
       shopemail.trim() &&
       shoppassword.trim()
     ) {
-      navigation.navigate(ShopKeeperdashboardScreen);
-      const requestOptions = {
+      const requestoption2 = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          shopkeeper_name: name,
-          shop_name: shopname,
-          shop_address: shopaddress,
-          shop_phoneno: shopphoneno,
-          shopkeeper_profilepicturaddress: null,
-          shopkeeper_email: shopemail,
-          shopkeeper_password: shoppassword,
+          Email: shopemail,
+          password: shoppassword,
+          Role: 'seller',
         }),
       };
-      fetch(`http://${API}/apiv2/api/Shopkeeper/Addshopkeeper`, requestOptions)
-        .then(response => {
-          if (!response.ok) {
-            throw Error('Check your connection');
-          } else {
-            alert('Sign Up Successfull');
-          }
-          response.json();
+      // let loginuserid;
+      fetch(`http://${API}/API/api/User/AddUser`, requestoption2)
+        .then(response => response.json())
+        .then(resp => {
+          alert(resp);
+          setuserid(resp);
+          alert('user id is ' + resp);
+          fetch(`http://${API}/API/api/User/insertseller`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              shopkeeper_name: name,
+              shop_name: shopname,
+              shop_address: shopaddress,
+              shop_phoneno: shopphoneno,
+              shopkeeper_profilepicturaddress: null,
+
+              userid: resp,
+            }),
+          })
+            .then(response => response.json())
+            .then(resp => {
+              alert('Sign Up Successfull' + resp);
+              navigation.navigate(ShopKeeperdashboardScreen, {
+                shopkeeperid: resp,
+              });
+            })
+            .catch(err => {
+              alert(err.message);
+            });
         })
-        .then(data => console.log('---response', data))
         .catch(err => {
           alert(err.message);
         });
+      console.log('========user id====' + userid);
+      // const requestOptions =;
     } else {
       alert('Plz fill complete form');
     }
