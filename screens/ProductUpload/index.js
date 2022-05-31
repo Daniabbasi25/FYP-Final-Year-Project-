@@ -9,15 +9,13 @@ import {
   TextInput,
 } from 'react-native';
 import React, {useState} from 'react';
-import TextInputfield from '../../components/TextInputfield';
 import styles from './styles';
 // import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import PrimaryButton from '../../components/PrimaryButton';
+
 import {androidCameraPermission} from '../../permissions';
 import {CheckBox, Input} from 'react-native-elements';
-
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import API from '../../API';
 const ProductUpload = () => {
@@ -84,19 +82,35 @@ const ProductUpload = () => {
 
     // ===============================================================
   };
+  const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+      maxHeight: 200,
+      maxWidth: 200,
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  };
   // for opening the gallery
-  const onGallery = () => {
+  const onGallery = async () => {
     // alert('on Gallery');
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-      imageupload(image.path);
-      setisimage(true);
-      setimage(image.path);
-    });
+    // ImagePicker.openPicker({
+    //   width: 300,
+    //   height: 400,
+    //   cropping: true,
+    // }).then(image => {
+    //   console.log(image);
+    //   imageupload(image.path);
+    //   setisimage(true);
+    //   setimage(image.path);
+    // });
+    const result = await launchImageLibrary(options);
+    console.log(result);
+    imageupload(result.assets[0]);
+    setisimage(true);
+    setimage(result.assets[0].uri);
   };
   const imageupload = imagepath => {
     alert(imagepath);
@@ -108,37 +122,38 @@ const ProductUpload = () => {
     // );
     console.log('hi this is console');
     if (isimage) {
-      const formdata = new FormData();
+      const data = new FormData();
       console.log(imagelink);
-      formdata.append('image', {
-        uri: imagelink.path,
-        name: 'image.png',
-        filename: 'image123',
-        type: imagelink.mime,
+      data.append('image', {
+        uri: imagelink.uri,
+        type: imagelink.type,
+        name: imagelink.fileName,
       });
 
-      console.log('form data', formdata);
-      const res = fetch(`http://${API}/API/api/Product/Upload`, {
-        method: 'post',
-        body: formdata,
+      data.append('productname', productname);
+      data.append('category', category);
+      data.append('quantity', quantity);
+      data.append('quantitytype', quanitytype);
+      data.append('price', price);
+      fetch(`http://${API}/API/api/Product/Upload`, {
+        method: 'POST',
+        body: data,
         headers: {
           'Content-Type': 'multipart/form-data ',
         },
       })
-        .then(response => {
-          if (!response.ok) {
-            throw Error(response);
-          } else {
-            alert('image upload Successfull');
-          }
-          response.json();
+        .then(response => response.json())
+        .then(resp => {
+          alert('successfully upload' + resp);
+          // navigation.navigate(ShopKeeperdashboardScreen,
+          // {
+          //   shopkeeperid: resp,
+          // }
+          // });
         })
-        .then(data => console.log('---response', data))
         .catch(err => {
-          alert(err.message);
+          alert(err);
         });
-    } else {
-      alert('kidnly upload image');
     }
   };
   const Desingimage = () => {
@@ -148,7 +163,7 @@ const ProductUpload = () => {
           <Image
             // source={require('')}
             source={{uri: imagelink}}
-            style={{width: 150, height: 150}}
+            style={styles.mainimage}
           />
           {/* <Text>{imagelink}</Text> */}
         </View>

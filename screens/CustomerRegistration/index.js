@@ -13,13 +13,15 @@ import PrimaryButton from '../../components/PrimaryButton';
 import Login from '../Login';
 import API from '../../API';
 import ShopKeeperdashboardScreen from '../ShopkeeperdashboardScreen';
-const CustomerRegistration = ({navigation}) => {
+import CustomerDashboard from '../CustomerProduct';
+const CustomerRegister = ({navigation}) => {
   const [name, setName] = React.useState('');
   const [shopname, setshopname] = React.useState('');
   const [shopaddress, setshopaddress] = React.useState('');
   const [shopphoneno, setshopephoneno] = React.useState('');
   const [shopemail, setshopemail] = React.useState('');
   const [shoppassword, setshoppassword] = React.useState('');
+  const [userid, setuserid] = React.useState();
 
   const handleChange = e => {
     setName(e);
@@ -49,37 +51,51 @@ const CustomerRegistration = ({navigation}) => {
     if (
       name.trim() &&
       shopname.trim() &&
-      shopaddress.trim() &&
+      // shopaddress.trim() &&
       shopemail.trim() &&
       shoppassword.trim()
     ) {
-      navigation.navigate(ShopKeeperdashboardScreen);
-      const requestOptions = {
+      const requestoption2 = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          shopkeeper_name: name,
-          shop_name: shopname,
-          shop_address: shopaddress,
-          shop_phoneno: shopphoneno,
-          shopkeeper_profilepicturaddress: null,
-          shopkeeper_email: shopemail,
-          shopkeeper_password: shoppassword,
+          Email: shopemail,
+          password: shoppassword,
+          Role: 'customer',
         }),
       };
-      fetch(`http://${API}/apiv2/api/Shopkeeper/Addshopkeeper`, requestOptions)
-        .then(response => {
-          if (!response.ok) {
-            throw Error('Check your connection');
-          } else {
-            alert('Sign Up Successfull');
-          }
-          response.json();
+      // let loginuserid;
+      fetch(`http://${API}/API/api/User/AddUser`, requestoption2)
+        .then(response => response.json())
+        .then(resp => {
+          alert(resp);
+          setuserid(resp);
+          alert('user id is ' + resp);
+          fetch(`http://${API}/API/api/User/insertCustomer`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              customer_name: name,
+              customer_addres: shopname,
+              shopkeeper_profilepicturaddress: null,
+
+              userid: resp,
+            }),
+          })
+            .then(response => response.json())
+            .then(resp => {
+              alert('Sign Up Successfull' + resp);
+              navigation.navigate('CustomerDashboard');
+            })
+            .catch(err => {
+              alert(err.message);
+            });
         })
-        .then(data => console.log('---response', data))
         .catch(err => {
           alert(err.message);
         });
+      console.log('========user id====' + userid);
+      // const requestOptions =;
     } else {
       alert('Plz fill complete form');
     }
@@ -93,7 +109,7 @@ const CustomerRegistration = ({navigation}) => {
         </View>
 
         {/* <Text style={styles.as}>as </Text>
-          <Text style={styles.heading}> Shopkeeper</Text> */}
+        <Text style={styles.heading}> Shopkeeper</Text> */}
 
         <View>
           <TextInputfield
@@ -109,15 +125,11 @@ const CustomerRegistration = ({navigation}) => {
             onChangeText={handleChangeshopemail}
           />
           <TextInputfield
-            placeholder="Shop Name"
+            placeholder="Customer Address"
             secure={false}
             onChangeText={handlechangeshopname}
           />
-          <TextInputfield
-            placeholder="Shop Address"
-            secure={false}
-            onChangeText={handleChangeshopaddress}
-          />
+
           <TextInputfield
             placeholder="Password"
             secure={true}
@@ -131,8 +143,8 @@ const CustomerRegistration = ({navigation}) => {
           onPress={handleSubmit}
         />
         {/* <TouchableOpacity onPress={handleSubmit}>
-          <Text style={{color: '#FEC000'}}>register</Text>
-        </TouchableOpacity> */}
+        <Text style={{color: '#FEC000'}}>register</Text>
+      </TouchableOpacity> */}
         <Text style={{textAlign: 'center'}}>Already have Account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate(Login)}>
           <Text style={{color: '#FEC000', textAlign: 'center'}}>Login</Text>
@@ -142,4 +154,4 @@ const CustomerRegistration = ({navigation}) => {
   );
 };
 
-export default CustomerRegistration;
+export default CustomerRegister;

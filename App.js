@@ -13,6 +13,7 @@ import Shopkeeperproducts from './screens/shopkeeperproducts';
 import RegisterAs from './screens/RegisterAs';
 import ProductUpload from './screens/ProductUpload';
 import CustomerRegistration from './screens/CustomerRegistration';
+import CustomerProduct from './screens/CustomerProduct';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -59,6 +60,11 @@ const App = () => {
         <Stack.Screen
           name="UpdateProduct"
           component={UpdateProduct}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="CustomerDashboard"
+          component={CustomerProduct}
           options={{headerShown: true}}
         />
       </Stack.Navigator>

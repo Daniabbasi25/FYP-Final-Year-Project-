@@ -1,16 +1,14 @@
 import React from 'react';
-// import render
+
 import UserContext from './UserContext';
 const UserState = props => {
   const state = {
-    userid: null,
+    userid: 1,
   };
   render();
   {
     return (
-      <UserContext.Provider value={state}>
-        {props.children}
-      </UserContext.Provider>
+      <UserContext.Provider value={state}>{children}</UserContext.Provider>
     );
   }
 };

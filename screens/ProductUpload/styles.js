@@ -56,5 +56,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#FFF',
   },
+  mainimage: {
+    width: width / 2,
+    height: height / 6,
+  },
 });
 export default styles;

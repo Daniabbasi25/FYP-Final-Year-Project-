@@ -39,6 +39,7 @@ const Login = ({navigation}) => {
           navigation.navigate('ShopKeeperdashboardScreen', resp);
         } else if (resp.Role == 'customer') {
           alert(' Customer Login successfull' + resp);
+          navigation.navigate('CustomerDashboard');
         } else {
           alert(' Delivery Boy Login successfull' + resp);
         }

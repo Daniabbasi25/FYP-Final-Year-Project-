@@ -21,7 +21,7 @@ const RegisterAs = ({navigation}) => {
       />
       <PrimaryButton
         txt="Customer"
-        onPress={() => navigation.navigate('Registration')}
+        onPress={() => navigation.navigate('CustomerRegister')}
         // onPress={handleLogin}
       />
     </View>
