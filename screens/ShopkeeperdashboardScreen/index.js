@@ -11,6 +11,7 @@ import {Divider} from 'react-native-elements';
 // import {Divider} from 'react-native-elements/dist/divider/Divider';
 
 const ShopKeeperdashboardScreen = ({navigation, route}) => {
+  console.log('User Id : ' + global.userId);
   // const {d} = route.params;
   return (
     <View style={styles.container}>
@@ -40,7 +41,7 @@ const ShopKeeperdashboardScreen = ({navigation, route}) => {
       {/* <Divider width={1} />
        */}
       <Divider width={1} />
-      <ShopkeeperBottomTab />
+      {/* <ShopkeeperBottomTab /> */}
     </View>
   );
 };

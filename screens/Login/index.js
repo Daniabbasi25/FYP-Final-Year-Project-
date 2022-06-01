@@ -1,19 +1,16 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './styles';
 import BackgroundImage from '../../components/BackgroundImage';
 import TextInputfield from '../../components/TextInputfield';
 import PrimaryButton from '../../components/PrimaryButton';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import API from '../../API';
-const image = require('../../assets/images/splash.jpg');
-
+import UserContext from '../../Context/User/UserContext';
 const Login = ({navigation}) => {
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [result, shopkeeperdata] = React.useState([]);
+  const {userid, setuserid} = useContext(UserContext);
+  let aa = 0;
   const handleLogin = () => {
     fetch(
       `http://${API}/API/api/User/Login?email=${email}&password=${password}`,
@@ -25,14 +22,8 @@ const Login = ({navigation}) => {
       },
     )
       .then(response => response.json())
-      // .then(resp => {
-      //   alert('the response is' + resp);
-      //   // shopkeeperdata(resp);
-      //   // alert('the reslt is' + result);
-      // })
       .then(resp => {
-        // if (condition) {
-        // }
+        global.userId = resp.id;
         if (resp.Role == 'seller') {
           alert(' shopkeeper Login successfull' + resp);
           // console.log(data);
@@ -43,6 +34,9 @@ const Login = ({navigation}) => {
         } else {
           alert(' Delivery Boy Login successfull' + resp);
         }
+        aa = resp.id;
+
+        alert('user ID=' + userid + 'and real id =' + aa);
       })
       .catch(err => {
         alert(err.message);

@@ -28,7 +28,7 @@ const ProductUpload = () => {
   const [productname, setproductname] = useState('');
   const [quantity, setquantity] = useState('');
   const [price, setprice] = useState('');
-  const [imagelink, setimage] = useState();
+  const [imagelink, setimage] = useState({});
   const [isimage, setisimage] = useState(false);
 
   const quantitykg = () => {
@@ -64,24 +64,6 @@ const ProductUpload = () => {
     // alert('upload image');
   };
   // for opening the camera
-  const oncamera = () => {
-    alert('on cam');
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-      alert(image);
-      setimage(image.path);
-      setisimage(true);
-      imageupload(image.path);
-    });
-    // launchCamera(options?, callback);
-    // =============================================================
-
-    // ===============================================================
-  };
   const options = {
     title: 'Select Image',
     type: 'library',
@@ -93,37 +75,31 @@ const ProductUpload = () => {
       includeBase64: false,
     },
   };
+  const oncamera = async () => {
+    const result = await launchCamera(options);
+    console.log(result);
+    imageupload(result.assets[0]);
+    setisimage(true);
+    setimage(result.assets[0]);
+    // ===============================================================
+  };
+
   // for opening the gallery
   const onGallery = async () => {
-    // alert('on Gallery');
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 400,
-    //   cropping: true,
-    // }).then(image => {
-    //   console.log(image);
-    //   imageupload(image.path);
-    //   setisimage(true);
-    //   setimage(image.path);
-    // });
     const result = await launchImageLibrary(options);
     console.log(result);
     imageupload(result.assets[0]);
     setisimage(true);
-    setimage(result.assets[0].uri);
+    setimage(result.assets[0]);
   };
-  const imageupload = imagepath => {
-    alert(imagepath);
-  };
+  // const imageupload = imagepath => {
+  //   alert(JSON.stringify(imagepath));
+  // };
   const handleupload = () => {
-    // alert('click upload');
-    // Alert.alert(
-    //   '' + productname + '' + quanitytype + '' + quantity + '' + category,
-    // );
     console.log('hi this is console');
     if (isimage) {
       const data = new FormData();
-      console.log(imagelink);
+      console.log('image Link : ' + imagelink);
       data.append('image', {
         uri: imagelink.uri,
         type: imagelink.type,
@@ -135,6 +111,14 @@ const ProductUpload = () => {
       data.append('quantity', quantity);
       data.append('quantitytype', quanitytype);
       data.append('price', price);
+      data.append('shopkeeperid', global.userId);
+      console.log(
+        '===========+' + productname,
+        category,
+        quantity,
+        quanitytype,
+        price + '==================',
+      );
       fetch(`http://${API}/API/api/Product/Upload`, {
         method: 'POST',
         body: data,
@@ -145,11 +129,6 @@ const ProductUpload = () => {
         .then(response => response.json())
         .then(resp => {
           alert('successfully upload' + resp);
-          // navigation.navigate(ShopKeeperdashboardScreen,
-          // {
-          //   shopkeeperid: resp,
-          // }
-          // });
         })
         .catch(err => {
           alert(err);
@@ -162,10 +141,9 @@ const ProductUpload = () => {
         <View style={styles.image}>
           <Image
             // source={require('')}
-            source={{uri: imagelink}}
+            source={{uri: imagelink.uri}}
             style={styles.mainimage}
           />
-          {/* <Text>{imagelink}</Text> */}
         </View>
       );
     } else {
@@ -182,36 +160,24 @@ const ProductUpload = () => {
       <ScrollView>
         <View style={styles.container}>
           <TouchableOpacity onPress={onselect}>
-            {/* <Image source={require(imagelink)} /> */}
             <Desingimage />
           </TouchableOpacity>
           <View style={styles.inputcontainer}>
             <Text style={styles.lable}>Product Name</Text>
             <TextInput
-              // placeholder="Product Name"
               value={productname}
-              // secure={false}
               onChangeText={text => setproductname(text)}
               style={styles.inputfield}
             />
           </View>
 
-          {/* <Input
-            placeholder="Category"
-            value={productname}
-            // secure={false}
-            onChangeText={text => setproductname(text)}
-          /> */}
           <View style={styles.inputcontainer}>
             <Text style={styles.lable}>Quantity</Text>
             <TextInput
-              // placeholder="Quantity"
               value={quantity}
               onChangeText={text => setquantity(text)}
               keyboardType="numeric"
               style={styles.inputfield}
-              // secure={false}
-              // onChangeText={handleChangeshopaddress}
             />
           </View>
           <View style={styles.inputcontainer}>
@@ -222,8 +188,6 @@ const ProductUpload = () => {
               onChangeText={text => setprice(text)}
               keyboardType="numeric"
               style={styles.inputfield}
-              // secure={false}
-              // onChangeText={handleChangeshopaddress}
             />
           </View>
           <View
@@ -276,11 +240,6 @@ const ProductUpload = () => {
             />
           </View>
 
-          {/* <PrimaryButton
-            txt="Upload"
-            // nav="ShopKeeperdashboardScreen"
-            onPress={handleupload}
-          /> */}
           <TouchableOpacity style={styles.uploadbutton} onPress={handleupload}>
             <Text style={styles.buttontext}>Upload</Text>
           </TouchableOpacity>
