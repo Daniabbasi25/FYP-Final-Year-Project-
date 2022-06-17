@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useContext} from 'react';
 import styles from './styles';
 import BackgroundImage from '../../components/BackgroundImage';
@@ -23,15 +23,17 @@ const Login = ({navigation}) => {
     )
       .then(response => response.json())
       .then(resp => {
-        global.userId = resp.id;
+        
         if (resp.Role == 'seller') {
           alert(' shopkeeper Login successfull' + resp);
           // console.log(data);
+          global.userId = resp.id;
           navigation.navigate('ShopKeeperdashboardScreen', resp);
         } else if (resp.Role == 'customer') {
           alert(' Customer Login successfull' + resp);
+          global.userId = resp.id;
           navigation.navigate('CustomerDashboard');
-        } else {
+        } else if (resp.Role == 'delivery') {
           alert(' Delivery Boy Login successfull' + resp);
         }
         aa = resp.id;
@@ -71,9 +73,7 @@ const Login = ({navigation}) => {
         nav="ShopKeeperdashboardScreen"
         onPress={handleLogin}
       />
-      {/* <TouchableOpacity onPress={handleLogin}>
-        <Text style={{color: '#FEC000'}}>Login</Text>
-      </TouchableOpacity> */}
+
       <Text style={{marginTop: 23}}>Don't have any account?</Text>
       <TouchableOpacity onPress={() => navigation.navigate('RegisterAs')}>
         <Text style={{color: '#FEC000'}}>Sign Up</Text>

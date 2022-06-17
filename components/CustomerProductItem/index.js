@@ -3,8 +3,10 @@ import React from 'react';
 import styles from './styles';
 import {Card} from 'react-native-shadow-cards';
 import API from '../../API';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import * as RootNavigation  from '../../RootNavigation';
-const ProductItem = (props) => {
+const CustomerProductItem = (props) => {
   // const p=props.productdata;
   const {
     product_id,
@@ -13,7 +15,7 @@ const ProductItem = (props) => {
     productimage,
     product_price,
     product_quantity,  
-    dozen,
+    product_quantitytype,
     kg,
   } = props.productdata;
   const imageip = `http://${API}/API/`;
@@ -32,21 +34,16 @@ const ProductItem = (props) => {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate('UpdateProduct');
-            RootNavigation.navigate('UpdateProduct', { product_id:product_id, product_price:product_price,product_quantity:product_quantity,productimage:productimage,imageip:imageip });
+            // RootNavigation.navigate('UpdateProduct', { product_id:product_id, product_price:product_price,product_quantity:product_quantity,productimage:productimage,imageip:imageip });
+             RootNavigation.navigate('AddtoCart', { product_id:product_id, product_price:product_price,product_quantity:product_quantity,productimage:productimage,imageip:imageip,product_name:product_name,product_category:product_category,product_quantitytype:product_quantitytype });
            
           }}  style={styles.editbutton}>
-          <Text style={{color:'#fff',fontSize: 18,}}>Edit</Text>
+          <Text style={{color:'#fff',fontSize: 18,}}> <Icon name="cart-outline" size={30}></Icon></Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // RootNavigation.navigate('UpdateProduct' );
-          }}
-          style={styles.deletebutton}>
-          <Text style={{color:'#fff',fontSize: 18,}}>Delete</Text>
-        </TouchableOpacity>
+       
       </View>
     </Card>
   );
 };
 
-export default ProductItem;
+export default CustomerProductItem;

@@ -40,7 +40,7 @@ const ShopKeeperdashboardScreen = ({navigation, route}) => {
       {/* </ScrollView> */}
       {/* <Divider width={1} />
        */}
-      <Divider width={1} />
+      {/* <Divider width={1} /> */}
       {/* <ShopkeeperBottomTab /> */}
     </View>
   );

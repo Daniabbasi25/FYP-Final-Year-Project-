@@ -26,7 +26,7 @@ const RecentOrder = () => {
       .then(resp => resp.json())
       .then(resp => orderlist(resp))
       .catch(error => alert(error))
-      .finally(setloading(false));
+      .finally(setlod=>setloading(false));
   }, []);
   return (
     <View style={styles.container}>

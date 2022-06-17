@@ -15,12 +15,15 @@ import ProductUpload from './screens/ProductUpload';
 import CustomerRegistration from './screens/CustomerRegistration';
 import CustomerProduct from './screens/CustomerProduct';
 import UserState from './Context/User/UserState';
+import { navigationRef } from './RootNavigation';
+import CustomerTab from './screens/CustomerTab';
+import AddtoCart from './screens/AddtoCart';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <UserState>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           // screenOptions={{
           //   headerShown: false,
@@ -66,7 +69,12 @@ const App = () => {
           />
           <Stack.Screen
             name="CustomerDashboard"
-            component={CustomerProduct}
+            component={CustomerTab}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AddtoCart"
+            component={AddtoCart}
             options={{headerShown: true}}
           />
         </Stack.Navigator>

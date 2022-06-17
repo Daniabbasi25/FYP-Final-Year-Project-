@@ -18,7 +18,7 @@ import {androidCameraPermission} from '../../permissions';
 import {CheckBox, Input} from 'react-native-elements';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import API from '../../API';
-const ProductUpload = () => {
+const ProductUpload = ({navigation}) => {
   const [kg, setkg] = useState(false);
   const [dozn, setdozn] = useState(false);
   const [quanitytype, setquantitytype] = useState('');
@@ -92,9 +92,9 @@ const ProductUpload = () => {
     setisimage(true);
     setimage(result.assets[0]);
   };
-  // const imageupload = imagepath => {
-  //   alert(JSON.stringify(imagepath));
-  // };
+  const imageupload = imagepath => {
+    alert(JSON.stringify(imagepath));
+  };
   const handleupload = () => {
     console.log('hi this is console');
     if (isimage) {
@@ -129,6 +129,7 @@ const ProductUpload = () => {
         .then(response => response.json())
         .then(resp => {
           alert('successfully upload' + resp);
+          navigation.navigate('shopkeeperproducts')
         })
         .catch(err => {
           alert(err);
@@ -168,6 +169,7 @@ const ProductUpload = () => {
               value={productname}
               onChangeText={text => setproductname(text)}
               style={styles.inputfield}
+              // ref={text => setproductname(text)}
             />
           </View>
 
