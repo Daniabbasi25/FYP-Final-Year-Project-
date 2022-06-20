@@ -9,6 +9,7 @@ import ProductUpload from '../ProductUpload';
 import ShopkeeperHeader from '../../components/ShopkeeperHeader';
 import ShopkeeperProfileScreen from '../ShopkeeperProfileScreen';
 import CustomerProduct from '../CustomerProduct';
+import Cart from '../Cart';
 
 // const myIcon = <Icon name="shop" size={30} />;
 const Tab = createBottomTabNavigator();
@@ -24,8 +25,8 @@ const CustomerTab = ({route, navigation}) => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'ios-home' : 'ios-home';
-          } else if (route.name === 'productupload') {
-            iconName = focused ? 'add-circle-outline' : 'add-circle-outline';
+          } else if (route.name === 'Cart') {
+            iconName = focused ? 'cart-outline' : 'cart-outline';
           } else if (route.name === 'shopkeeperprofile') {
             iconName = focused ? 'person-outline' : 'person-outline';
           }
@@ -39,7 +40,7 @@ const CustomerTab = ({route, navigation}) => {
         header: () => <ShopkeeperHeader  />,
       })}>
       <Tab.Screen name="Home" component={CustomerProduct} />
-      <Tab.Screen name="productupload" component={ProductUpload} />
+      <Tab.Screen name="Cart" component={Cart} />
 
       <Tab.Screen
         name="shopkeeperprofile"

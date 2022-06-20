@@ -68,6 +68,7 @@ const Registration = ({navigation}) => {
         .then(response => response.json())
         .then(resp => {
           alert(resp);
+          global.userId = resp;
           setuserid(resp);
           alert('user id is ' + resp);
           fetch(`http://${API}/API/api/User/insertseller`, {

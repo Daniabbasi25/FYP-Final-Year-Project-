@@ -31,5 +31,9 @@ const styles = StyleSheet.create({
         backgroundColor:'gray',
         padding:5,
     },
+    flatlistbox:{
+        height:height/1.5,
+        alignItems:'center'
+    }
 });
 export default styles;

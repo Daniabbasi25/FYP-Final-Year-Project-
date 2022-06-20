@@ -7,8 +7,26 @@ import CustomerProductItem from '../../components/CustomerProductItem';
 const CustomerProduct = () => {
   const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
+  const [filterdata,getfilterdata]=useState([]);
+  const [search,setserch]=useState();
+  const serchFilter=(text)=>{
+    if(text){
+      const newData=result.filter((item)=>{
+        const itemData=item.product_name?  item.product_name
+                :'';
+        const textData=text;
+        return itemData.indexOf(textData)>-1;
+      });
+      serchFilter(newData);
+      setserch(text);
+    }
+    else{
+      serchFilter(result);
+      setserch(text);
+    }
+  }
 
-  
+
    const getDataUsingGet = async () => {
       //GET request
       
@@ -19,7 +37,7 @@ const CustomerProduct = () => {
   
           console.log("hiii"+JSON.stringify(json))
           productlist(json);
-          
+          getfilterdata(json);
   
         }catch (error)
         {console.error(error)}
@@ -37,7 +55,7 @@ const CustomerProduct = () => {
       if (!isloading) {
         return (
           <FlatList
-          data={result}
+          data={filterdata}
            //data={result.slice(0, 2)}
           horizontal={false}
           // renderItem={({item}) => <CustomerProductItem productdata={item} />}
@@ -45,7 +63,7 @@ const CustomerProduct = () => {
           showsHorizontalScrollIndicator={false}
           snapToAlignment={'start'}
           decelerationRate={'fast'}
-          snapToInterval={Dimensions.get('window').height}
+          // snapToInterval={Dimensions.get('window').height}
           numColumns={2}
           
         />
@@ -58,7 +76,14 @@ const CustomerProduct = () => {
     <View>
      {/* header => name */}
      <View style={styles.uppercontainer}>
-      <TextInput style={styles.textfield} placeholder="Search">
+      <TextInput 
+        style={styles.textfield} 
+        placeholder="Search"  
+        value={search}
+        underlineColorAndroid="transparent"
+        onChangeText={(text)=>serchFilter(text)}
+      
+      >
       
       </TextInput>
       {/* <Icon name="person-outline" size='30' color='#000'/> */}
@@ -87,7 +112,7 @@ const CustomerProduct = () => {
       </TouchableOpacity>
 
      </View>
-     <View>
+     <View style={styles.flatlistbox}>
      <ProductListview />
      </View>
      {/* search bar */}

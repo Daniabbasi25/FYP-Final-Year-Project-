@@ -31,13 +31,7 @@ const CustomerRegister = ({navigation}) => {
     setshopname(e);
   };
 
-  const handleChangeshopaddress = e => {
-    setshopaddress(e);
-  };
-
-  const handleChangeshopphoneno = e => {
-    setshopephoneno(e);
-  };
+  
 
   const handleChangeshopemail = e => {
     setshopemail(e);
@@ -69,6 +63,7 @@ const CustomerRegister = ({navigation}) => {
         .then(response => response.json())
         .then(resp => {
           alert(resp);
+          global.userId = resp;
           setuserid(resp);
           alert('user id is ' + resp);
           fetch(`http://${API}/API/api/User/insertCustomer`, {

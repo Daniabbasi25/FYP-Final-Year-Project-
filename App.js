@@ -18,11 +18,15 @@ import UserState from './Context/User/UserState';
 import { navigationRef } from './RootNavigation';
 import CustomerTab from './screens/CustomerTab';
 import AddtoCart from './screens/AddtoCart';
+import Cart from './screens/Cart';
+import CheckOut from './screens/CheckOut';
+import CartState from './Context/Cart/CartState';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <UserState>
+      <CartState>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           // screenOptions={{
@@ -77,9 +81,20 @@ const App = () => {
             component={AddtoCart}
             options={{headerShown: true}}
           />
+          <Stack.Screen
+            name="Cart"
+            component={Cart}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="CheckOut"
+            component={CheckOut}
+            options={{headerShown: true}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
       {/* // <ShopKeeperdashboardScreen /> */}
+      </CartState>
     </UserState>
   );
 };

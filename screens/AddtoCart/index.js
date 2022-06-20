@@ -4,6 +4,7 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import API from '../../API'
 const AddtoCart = ({route,navigation}) => {
+  console.log("customer id="+ global.userId)
     const {
         product_id, product_price,product_quantity,productimage,imageip,product_name,product_category,product_quantitytype } = route.params;
         console.log("product name="+product_name)
@@ -43,13 +44,13 @@ const AddtoCart = ({route,navigation}) => {
           };
           fetch(`http://${API}/API/api/CartItem/Addcartitem`, requestoption)
         .then(response => response.json())
-        .then(resp => {alert(resp);})
+        .then(resp => {alert("Item add successfully");
+        navigation.navigate("Cart")
+        })
         .catch(err => {
                 alert(err.message);
               });
        };
-      
-
   return (
     <View>
         <Image
@@ -65,13 +66,13 @@ const AddtoCart = ({route,navigation}) => {
                 <TouchableOpacity style={styles.button}
                 onPress={increment} 
                 >
-                <Icon name="add-outline" size={30}  />
+                <Icon name="add-outline" size={25}  color="#fff"/>
                 </TouchableOpacity>
                 <TextInput keyboardType='numeric' style={{backgroundColor:'#f1f1f1'}} value={quantity.toString()}  onChangeText={text => setquantity(text)}>
                 
                 </TextInput>
                 <TouchableOpacity style={styles.button} onPress={decrement}>
-                <Icon name="remove-outline" size={30} />
+                <Icon name="remove-outline" size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
 
