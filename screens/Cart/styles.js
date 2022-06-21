@@ -45,7 +45,11 @@ const styles=StyleSheet.create({
         paddingVertical:8,
         fontSize:18,
         borderRadius:50
+    },
+    empty:{
+        color:'#000'
     }
+
 
 });
 export default styles;

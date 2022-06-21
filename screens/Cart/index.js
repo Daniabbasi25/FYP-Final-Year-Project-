@@ -16,9 +16,25 @@ const Cart = ({navigation}) => {
   // global.t=0;
   const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
-  //  const [total,settotal]=useState(0)
+  const [grandtotal,setgrandtotal]=useState(0);
+  // let grandtotal=0;
   const t = useContext(CartContext);
 
+
+
+const calculatethetotal=(json)=>{
+  // calculate the grand total
+  // result.
+  let i=0;
+  json.forEach((item)=>{
+     i=item.ttl+i;
+    console.log(i)
+   
+    // grandtotal=item.ttl+grandtotal;
+   
+  })
+  setgrandtotal(i)
+}
   const getDataUsingGet = async () => {
     //GET request
 
@@ -26,19 +42,14 @@ const Cart = ({navigation}) => {
       const apiurl = `http://${API}/API/api/CartItem/Allcart?customerid=${global.userId}`;
       const response = await fetch(apiurl);
       const json = await response.json();
-      //  settotal(0)
       console.log('hiii' + JSON.stringify(json));
       productlist(json);
-      console.log("Product List Data:", result)
-      //  const t=json.map((num)=>{
-      //     console.log(`total=${total} and num.ttl=${num.ttl}`)
-
-      //     let n=parseInt(num.ttl)
-      //     // settotal( parseInt(total)+parseInt(n));
-      //   })
-    } catch (error) {
+      calculatethetotal(json);
+    } 
+    catch (error) {
       console.error(error);
-    } finally {
+    } 
+    finally {
       setloading(false);
     }
   };
@@ -46,6 +57,24 @@ const Cart = ({navigation}) => {
   useEffect(() => {
     getDataUsingGet();
   }, []);
+  const Checkoutbutton=()=>{
+    if(result.length!=0){
+      return(<View style={styles.lowercontainer}>
+      <TouchableOpacity
+        onPress={() => {
+          t.update(1);
+          navigation.navigate('CheckOut',{total:grandtotal});
+        }}>
+        <Text style={styles.checkoutbutton}>checkout Rs={grandtotal}</Text>
+      </TouchableOpacity>
+    </View>)
+    }
+    else {
+     return( <Text styl={styles.empty}>
+        Cart is Empty
+      </Text>)
+    }
+  }
   const Completelist = () => {
     if (!isloading) {
       return (
@@ -56,6 +85,7 @@ const Cart = ({navigation}) => {
               renderItem={({item}) => <Cartitem cartdata={item} />}
             />
           </View>
+         <Checkoutbutton />
         </View>
       );
     } else {
@@ -67,15 +97,7 @@ const Cart = ({navigation}) => {
   return (
     <View>
       <Completelist />
-      <View style={styles.lowercontainer}>
-        <TouchableOpacity
-          onPress={() => {
-            t.update(1);
-            navigation.navigate('CheckOut');
-          }}>
-          <Text style={styles.checkoutbutton}>checkout Rs={t.total}</Text>
-        </TouchableOpacity>
-      </View>
+ 
     </View>
   );
 };

@@ -29,7 +29,7 @@ const CustomerProductItem = (props) => {
       </View>
       <View style={styles.texdata}>
         <Text style={{fontWeight: '800', fontSize: 20, color: '#000'}}>
-          {product_name}
+          {product_name.toUpperCase()}
         </Text>
         <TouchableOpacity
           onPress={() => {

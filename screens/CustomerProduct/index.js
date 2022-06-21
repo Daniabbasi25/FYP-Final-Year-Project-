@@ -7,21 +7,23 @@ import CustomerProductItem from '../../components/CustomerProductItem';
 const CustomerProduct = () => {
   const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
-  const [filterdata,getfilterdata]=useState([]);
+  const [filterdata,getfilterdata]=useState([{}]);
   const [search,setserch]=useState();
   const serchFilter=(text)=>{
     if(text){
       const newData=result.filter((item)=>{
-        const itemData=item.product_name?  item.product_name
-                :'';
-        const textData=text;
+        const itemData=item.product_name?  item.product_name.toUpperCase()
+                :''.toUpperCase();
+        const textData=text.toUpperCase();
         return itemData.indexOf(textData)>-1;
       });
-      serchFilter(newData);
+      // serchFilter(newData);
+      getfilterdata(newData)
       setserch(text);
     }
     else{
-      serchFilter(result);
+      getfilterdata(result);
+      // serchFilter(result);
       setserch(text);
     }
   }

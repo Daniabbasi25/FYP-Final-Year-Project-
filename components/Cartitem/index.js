@@ -6,23 +6,21 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CartContext from '../../Context/Cart/CartContext';
 import API from '../../API';
 import styles from './styles';
-global.datattl=0;
+// global.datattl=0;
 const Cartitem=(props)=>{
     const t=useContext(CartContext)
     const {name,price,quantity,type,ttl,productimage}=props.cartdata;
     
-    console.log("ttl="+ttl)
+    // console.log("ttl="+ttl)
     // datattl=datattl+ttl;
-    global.datattl=ttl+ttl
-    console.log(`datatotal${global.datattl}`)
-    t.update(ttl);
+    // global.datattl=ttl+ttl
+    // console.log(`datatotal${global.datattl}`)
+    // t.update(ttl);
   
     const imageip = `http://${API}/API/Images/`;
     return(
         <Card >
             <View style={styles.maincontainer}> 
-
-           
             <Image
       source={{uri: imageip + productimage}}
       style={styles.prodcutimg}
