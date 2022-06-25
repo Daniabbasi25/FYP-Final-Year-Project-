@@ -11,27 +11,43 @@ import Order from '../Order';
 import styles from './styles';
 import Orders from './Orders';
 import API from '../../API';
-const orderurl = `http://${API}/apiv1/api/Orders/Allorders`;
 const RecentOrder = () => {
+  //const orderurl = `http://${API}/API/api/Order/getMainOrder?sid=${global.userId}`;
+
   const [isloading, setloading] = useState(true);
   const [result, orderlist] = useState([]);
 
+  const getDataUsingGet = async () => {
+    //GET request
+    
+    try{   
+      const apiurl = `http://${API}/API/api/Order/getOrder?sid=${global.userId}`;
+  const response= await  fetch(apiurl); 
+   const json = await response.json();
+
+        console.log("hiii"+JSON.stringify(json))
+        orderlist(json);
+        
+
+      }catch (error)
+      {console.error(error)}
+      finally{
+        setloading(false);
+      }
+    
+     
+  };
+
+
   useEffect(() => {
-    fetch(orderurl, {
-      method: 'Get',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(resp => resp.json())
-      .then(resp => orderlist(resp))
-      .catch(error => alert(error))
-      .finally(setlod=>setloading(false));
-  }, []);
-  return (
-    <View style={styles.container}>
+    getDataUsingGet()}, []);
+  const Flist=()=>{
+    if(!isloading)
+    {
+     return( 
+     <View style={styles.container}>
       <FlatList
-        data={result.slice(0, 3)}
+        data={result}
         // keyExtractor={({id}, index) => order_id}
         //  data={this.state.itemList.slice(0, 30)}
         renderItem={({item}) => <Order ord={item} />}
@@ -47,6 +63,19 @@ const RecentOrder = () => {
         style={styles.flatList}
       />
     </View>
+    )}
+    else{
+    
+        return (<ActivityIndicator size="large" color="#00ff00" />);
+      
+    }
+  }
+  return (
+    <View>
+       <Flist />
+
+    </View>
+   
   );
 };
 

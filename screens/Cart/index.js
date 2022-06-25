@@ -16,25 +16,23 @@ const Cart = ({navigation}) => {
   // global.t=0;
   const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
-  const [grandtotal,setgrandtotal]=useState(0);
+  const [grandtotal, setgrandtotal] = useState(0);
+
   // let grandtotal=0;
   const t = useContext(CartContext);
 
+  const calculatethetotal = json => {
+    // calculate the grand total
+    // result.
+    let i = 0;
+    json.forEach(item => {
+      i = item.ttl + i;
+      console.log(i);
 
-
-const calculatethetotal=(json)=>{
-  // calculate the grand total
-  // result.
-  let i=0;
-  json.forEach((item)=>{
-     i=item.ttl+i;
-    console.log(i)
-   
-    // grandtotal=item.ttl+grandtotal;
-   
-  })
-  setgrandtotal(i)
-}
+      // grandtotal=item.ttl+grandtotal;
+    });
+    setgrandtotal(i);
+  };
   const getDataUsingGet = async () => {
     //GET request
 
@@ -45,11 +43,9 @@ const calculatethetotal=(json)=>{
       console.log('hiii' + JSON.stringify(json));
       productlist(json);
       calculatethetotal(json);
-    } 
-    catch (error) {
+    } catch (error) {
       console.error(error);
-    } 
-    finally {
+    } finally {
       setloading(false);
     }
   };
@@ -57,24 +53,47 @@ const calculatethetotal=(json)=>{
   useEffect(() => {
     getDataUsingGet();
   }, []);
-  const Checkoutbutton=()=>{
-    if(result.length!=0){
-      return(<View style={styles.lowercontainer}>
-      <TouchableOpacity
-        onPress={() => {
-          t.update(1);
-          navigation.navigate('CheckOut',{total:grandtotal});
-        }}>
-        <Text style={styles.checkoutbutton}>checkout Rs={grandtotal}</Text>
-      </TouchableOpacity>
-    </View>)
+
+  const handledelet = results => {
+    fetch(
+      `http://${API}/API/api/CartItem/Deletecart?id=${results.citem_id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    .then(response => response.json())
+    .then(()=>{
+     setgrandtotal(grandtotal - results.ttl);
+    productlist(result.filter(m => m.citem_id !== results.citem_id));
+    })
+    .catch(err => {
+        alert(err.message);
+      });
+   
+  };
+  const Checkoutbutton = () => {
+    if (result.length != 0) {
+      return (
+        <View style={styles.lowercontainer}>
+          <TouchableOpacity
+            onPress={() => {
+              t.update(1);
+              navigation.navigate('CheckOut', {total: grandtotal});
+            }}>
+            <Text style={styles.checkoutbutton}>checkout Rs={grandtotal}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return( <View style={styles.empty}>
+
+     <Text style={{color:'#000',fontSize:18}}>Cart is Empty</Text>
+     </View> );
     }
-    else {
-     return( <Text styl={styles.empty}>
-        Cart is Empty
-      </Text>)
-    }
-  }
+  };
   const Completelist = () => {
     if (!isloading) {
       return (
@@ -82,10 +101,12 @@ const calculatethetotal=(json)=>{
           <View style={styles.flatlistcontainer}>
             <FlatList
               data={result}
-              renderItem={({item}) => <Cartitem cartdata={item} />}
+              renderItem={({item}) => (
+                <Cartitem cartdata={item} handledelet={handledelet} />
+              )}
             />
           </View>
-         <Checkoutbutton />
+          <Checkoutbutton />
         </View>
       );
     } else {
@@ -97,7 +118,6 @@ const calculatethetotal=(json)=>{
   return (
     <View>
       <Completelist />
- 
     </View>
   );
 };

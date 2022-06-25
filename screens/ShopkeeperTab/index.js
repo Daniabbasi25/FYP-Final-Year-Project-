@@ -13,9 +13,9 @@ import UserContext from '../../Context/User/UserContext';
 // const myIcon = <Icon name="shop" size={30} />;
 const Tab = createBottomTabNavigator();
 const ShopkeeperTab = ({route, navigation}) => {
-  const {shopkeeperid} = route.params;
-  console.log('reoutes', route.params);
-  const id = JSON.stringify(shopkeeperid);
+  // const {shopkeeperid} = route.params;
+  // console.log('reoutes', route.params);
+  // const id = JSON.stringify(shopkeeperid);
   return (
     // <UserContext>
     <Tab.Navigator
@@ -37,7 +37,7 @@ const ShopkeeperTab = ({route, navigation}) => {
         tabBarActiveTintColor: 'orange',
         tabBarInactiveTintColor: 'gray',
         // headerShown: false,
-        header: () => <ShopkeeperHeader id={id} />,
+        header: () => <ShopkeeperHeader  />,
       })}>
       <Tab.Screen name="Home" component={ShopKeeperdashboardScreen} />
       <Tab.Screen name="productupload" component={ProductUpload} />

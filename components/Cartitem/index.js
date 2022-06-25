@@ -10,13 +10,16 @@ import styles from './styles';
 const Cartitem=(props)=>{
     const t=useContext(CartContext)
     const {name,price,quantity,type,ttl,productimage}=props.cartdata;
+    const {handledelet}=props.handledelet;
     
     // console.log("ttl="+ttl)
     // datattl=datattl+ttl;
     // global.datattl=ttl+ttl
     // console.log(`datatotal${global.datattl}`)
     // t.update(ttl);
-  
+    const deletefunction=()=>{
+    console.log(props.cartdata)
+    }
     const imageip = `http://${API}/API/Images/`;
     return(
         <Card >
@@ -39,7 +42,7 @@ const Cartitem=(props)=>{
             </View>
             <View style={styles.iconcontainer}>
            
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>props.handledelet(props.cartdata)}>
             <Icon name="delete" size={25} color="red"/>
             </TouchableOpacity>
             <Text style={styles.itemtotal}>

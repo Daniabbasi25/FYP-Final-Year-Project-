@@ -142,7 +142,7 @@ const response= await  fetch(apiurl);
             Order Now
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Schedule',{total:total,address:address})}>
           <Text style={{fontSize:15,color:'#fff'}}>
             Schedule Order
           </Text>

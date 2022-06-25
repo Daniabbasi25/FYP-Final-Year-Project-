@@ -2,11 +2,13 @@ import { View, Text ,TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/AntDesign';
+import * as RootNavigation  from '../../RootNavigation';
+
 const myIcon = <Icon name="clockcircleo" size={30} color="#fff" />;
 const Order = props => {
-   const {order_time ,order_totalamount,order,c_name} =props.ord;
+   const {customername ,deliveryaddress,status,customerid,mainid} =props.ord;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>{RootNavigation.navigate("OrderDetail",{mainid:mainid,customername:customername,deliveryaddress:deliveryaddress,customerid:customerid})}} >
 
     
     <View style={styles.container}>
@@ -15,13 +17,14 @@ const Order = props => {
         {myIcon}
         </View>
         <Text style={{color:'#748A9D'}}>
-             {c_name}
+             {/* {customer_id} */}
+             {customername}
         </Text>
         <Text style={{color:'#A6BCD0'}}>
-            {order_time }
+            {deliveryaddress}
         </Text>
         <Text style={{color:'#748A9D'}}>
-            RS {order_totalamount}
+             {status}
         </Text>
        
     </View>

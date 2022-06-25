@@ -19,7 +19,7 @@ const ShopKeeperdashboardScreen = ({navigation, route}) => {
       {/* <ScrollView> */}
       <View style={styles.header}>
         <Text>Recent Orders</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('OrderScreen')}>
           <Text style={{color: '#0FAB0A'}}>View All</Text>
         </TouchableOpacity>
       </View>

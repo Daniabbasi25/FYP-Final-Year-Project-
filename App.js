@@ -21,6 +21,9 @@ import AddtoCart from './screens/AddtoCart';
 import Cart from './screens/Cart';
 import CheckOut from './screens/CheckOut';
 import CartState from './Context/Cart/CartState';
+import SchedulingScreen from './screens/SchedulingScreen';
+import OrderScreen from './screens/OrderScreen';
+import OrderDetails from './screens/OrderDetails';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -89,6 +92,21 @@ const App = () => {
           <Stack.Screen
             name="CheckOut"
             component={CheckOut}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="Schedule"
+            component={SchedulingScreen}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="OrderScreen"
+            component={OrderScreen}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="OrderDetail"
+            component={OrderDetails}
             options={{headerShown: true}}
           />
         </Stack.Navigator>

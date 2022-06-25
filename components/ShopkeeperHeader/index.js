@@ -6,7 +6,7 @@ import API from '../../API';
 const orderurl = `http://${API}/API/api/Orders/OneShopkeeper`;
 
 const ShopkeeperHeader = props => {
-  const id = props.id;
+  //const id = props.id;
   const [isloading, setloading] = useState(true);
   const [result, orderlist] = useState('');
 

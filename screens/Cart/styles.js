@@ -47,9 +47,15 @@ const styles=StyleSheet.create({
         borderRadius:50
     },
     empty:{
-        color:'#000'
-    }
+        color:'#000',
+        position:'absolute',
+        width:width,
+        height:height/2,
+       
+        justifyContent:'center',
+        alignItems:'center'
 
+    }
 
 });
 export default styles;
