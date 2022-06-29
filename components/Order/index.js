@@ -6,9 +6,9 @@ import * as RootNavigation  from '../../RootNavigation';
 
 const myIcon = <Icon name="clockcircleo" size={30} color="#fff" />;
 const Order = props => {
-   const {customername ,deliveryaddress,status,customerid,mainid} =props.ord;
+   const {customername ,deliveryaddress,status,customerid,mainid,isAssgin,deliveryboyname} =props.ord;
   return (
-    <TouchableOpacity onPress={()=>{RootNavigation.navigate("OrderDetail",{mainid:mainid,customername:customername,deliveryaddress:deliveryaddress,customerid:customerid})}} >
+    <TouchableOpacity onPress={()=>{RootNavigation.navigate("OrderDetail",{mainid:mainid,customername:customername,deliveryaddress:deliveryaddress,customerid:customerid,isAssgin:isAssgin,deliveryboyname:deliveryboyname})}} >
 
     
     <View style={styles.container}>

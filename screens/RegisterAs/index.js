@@ -16,8 +16,7 @@ const RegisterAs = ({navigation}) => {
       />
       <PrimaryButton
         txt="Delivery Boy"
-        nav="Login"
-        // onPress={handleLogin}
+        onPress={()=>navigation.navigate('DeliveryboyRegistration')}
       />
       <PrimaryButton
         txt="Customer"

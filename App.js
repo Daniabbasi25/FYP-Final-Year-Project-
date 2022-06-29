@@ -24,6 +24,9 @@ import CartState from './Context/Cart/CartState';
 import SchedulingScreen from './screens/SchedulingScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderDetails from './screens/OrderDetails';
+import DeliveryboyRegistration from './screens/DeliveryboyRegistration';
+import DeliveryBoyDashboard from './screens/DeliveryDashboard';
+import DeliveryTab from './screens/DeliveryTab';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -108,6 +111,16 @@ const App = () => {
             name="OrderDetail"
             component={OrderDetails}
             options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="DeliveryboyRegistration"
+            component={DeliveryboyRegistration}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="DeliveryBoyDashboard"
+            component={DeliveryTab}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>

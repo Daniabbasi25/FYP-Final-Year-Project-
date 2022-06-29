@@ -11,6 +11,7 @@ import Order from '../Order';
 import styles from './styles';
 import Orders from './Orders';
 import API from '../../API';
+global.updatebutton=0;
 const RecentOrder = () => {
   //const orderurl = `http://${API}/API/api/Order/getMainOrder?sid=${global.userId}`;
 
@@ -40,7 +41,7 @@ const RecentOrder = () => {
 
 
   useEffect(() => {
-    getDataUsingGet()}, []);
+    getDataUsingGet()}, [global.updatebutton]);
   const Flist=()=>{
     if(!isloading)
     {

@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator, Modal} from 'react-native';
 import React, {useContext} from 'react';
 import styles from './styles';
 import BackgroundImage from '../../components/BackgroundImage';
@@ -35,6 +35,8 @@ const Login = ({navigation}) => {
           navigation.navigate('CustomerDashboard');
         } else if (resp.Role == 'delivery') {
           alert(' Delivery Boy Login successfull' + resp);
+          global.userId = resp.id;
+          navigation.navigate('DeliveryBoyDashboard');
         }
         aa = resp.id;
 
