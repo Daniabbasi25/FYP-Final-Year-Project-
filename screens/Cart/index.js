@@ -11,6 +11,7 @@ import styles from './styles';
 import API from '../../API';
 import CartContext from '../../Context/Cart/CartContext';
 import Cartitem from '../../components/Cartitem';
+import { handleClick } from '../../reducer';
 const Cart = ({navigation}) => {
   // start
   // global.t=0;

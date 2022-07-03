@@ -65,7 +65,7 @@ const response= await  fetch(apiurl);
       data.append('daddress', address);
 
      
-      fetch(`http://${API}/API/api/Order/PlaceOrder`, {
+      fetch(`http://${API}/API/api/Order/newPlaceOrder`, {
         method: 'POST',
         body: data,
         headers: {
