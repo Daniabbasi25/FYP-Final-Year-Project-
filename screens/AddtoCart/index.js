@@ -15,8 +15,14 @@ const AddtoCart = ({route,navigation}) => {
       
        
       const  increment=()=>{
-            setquantity(quantity+1)
-            console.log(quantity)
+        if(quantity<=product_quantity){
+          setquantity(quantity+1)
+          console.log(quantity)
+        }
+        else{
+          alert("no more quantity available")
+        }
+           
         }
 
       const  decrement=()=>{
@@ -63,16 +69,19 @@ const AddtoCart = ({route,navigation}) => {
                 {product_name}
             </Text>
             <View style={styles.conterbox}>
+            <TouchableOpacity style={styles.button} onPress={decrement}>
+                <Icon name="remove-outline" size={25} color="#fff"/>
+                </TouchableOpacity>
+
+                <TextInput keyboardType='numeric' style={{backgroundColor:'#f1f1f1'}} value={quantity.toString()}  onChangeText={text => setquantity(text)}>
+                
+                </TextInput>
+               
+
                 <TouchableOpacity style={styles.button}
                 onPress={increment} 
                 >
                 <Icon name="add-outline" size={25}  color="#fff"/>
-                </TouchableOpacity>
-                <TextInput keyboardType='numeric' style={{backgroundColor:'#f1f1f1'}} value={quantity.toString()}  onChangeText={text => setquantity(text)}>
-                
-                </TextInput>
-                <TouchableOpacity style={styles.button} onPress={decrement}>
-                <Icon name="remove-outline" size={25} color="#fff"/>
                 </TouchableOpacity>
             </View>
 

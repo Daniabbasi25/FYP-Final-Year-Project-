@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     activebutton:{
        
-        backgroundColor:'darkorange',
+        backgroundColor:'orange',
         borderRadius:20,
       
       
@@ -28,6 +28,42 @@ const styles = StyleSheet.create({
     },
     white:{
         color:'#fff'
-    }
+    },
+    container:{
+        backgroundColor:'#F0F4F8',
+        margin:2,
+        padding:5,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        width:width/1.1,
+        alignSelf:'center',
+    
+        // height:height/10,
+
+    },
+    icon:{
+        
+        backgroundColor:'#0FAB0A',
+        width:40,
+        height:40,
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:50
+     
+
+    },
+  
+    flatList: {
+        height: height/1.43,
+        backgroundColor: '#fff',
+        flexGrow: 0
+      },
+      containerflist:{
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:height/height/2,
+        marginTop:10
+    },
 });
 export default styles;

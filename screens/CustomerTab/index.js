@@ -10,6 +10,7 @@ import ShopkeeperHeader from '../../components/ShopkeeperHeader';
 import ShopkeeperProfileScreen from '../ShopkeeperProfileScreen';
 import CustomerProduct from '../CustomerProduct';
 import Cart from '../Cart';
+import CustomerOrders from '../CustomerOrders';
 
 // const myIcon = <Icon name="shop" size={30} />;
 const Tab = createBottomTabNavigator();
@@ -27,8 +28,8 @@ const CustomerTab = ({route, navigation}) => {
             iconName = focused ? 'ios-home' : 'ios-home';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart-outline' : 'cart-outline';
-          } else if (route.name === 'shopkeeperprofile') {
-            iconName = focused ? 'person-outline' : 'person-outline';
+          } else if (route.name === 'MyOrders') {
+            iconName = focused ? 'basket-outline' : 'basket-outline';
           }
 
           // You can return any component that you like here!
@@ -43,8 +44,8 @@ const CustomerTab = ({route, navigation}) => {
       <Tab.Screen name="Cart" component={Cart} />
 
       <Tab.Screen
-        name="shopkeeperprofile"
-        component={ShopkeeperProfileScreen}
+        name="MyOrders"
+        component={CustomerOrders}
       />
     </Tab.Navigator>
     // </UserContext>
