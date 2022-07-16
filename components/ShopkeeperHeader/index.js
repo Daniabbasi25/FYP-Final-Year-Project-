@@ -3,6 +3,8 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import styles from './styles';
 import API from '../../API';
+import * as RootNavigation  from '../../RootNavigation';
+import { Button } from 'react-native-elements';
 const orderurl = `http://${API}/API/api/Orders/OneShopkeeper`;
 
 const ShopkeeperHeader = props => {
@@ -28,7 +30,9 @@ const ShopkeeperHeader = props => {
         source={{uri:'https://i.pravatar.cc/300?img=65'}}
         style={styles.profilepicture}
      /> */}
-      <Text style={styles.name}>Kohistan Fruit seller</Text>
+      <Text style={styles.name}>
+        <Button title="logout" onPress={()=> RootNavigation.navigate('Login')}/>
+      </Text>
     </View>
   );
 };

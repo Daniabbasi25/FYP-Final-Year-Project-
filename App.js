@@ -27,6 +27,10 @@ import OrderDetails from './screens/OrderDetails';
 import DeliveryboyRegistration from './screens/DeliveryboyRegistration';
 import DeliveryBoyDashboard from './screens/DeliveryDashboard';
 import DeliveryTab from './screens/DeliveryTab';
+import Testrating from './testrating';
+import TestMap from './TestMap';
+import RatingProduct from './screens/RatingScreen';
+import Searchbyshop from './Searchbyshop';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -121,6 +125,16 @@ const App = () => {
             name="DeliveryBoyDashboard"
             component={DeliveryTab}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="RatingProduct"
+            component={RatingProduct}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen
+            name="Search"
+            component={Searchbyshop}
+            options={{headerShown: true}}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -43,10 +43,7 @@ const DeliveryTab = ({route, navigation}) => {
       <Tab.Screen name="Home" component={DeliveryBoyDashboard} />
      
 
-      <Tab.Screen
-        name="shopkeeperprofile"
-        component={ShopkeeperProfileScreen}
-      />
+    
     </Tab.Navigator>
     // </UserContext>
   );

@@ -6,12 +6,14 @@ import styles from './styles';
 const CustomerOrders = () => {
   const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
+  let counter=0;
   const getDataUsingGet = async () => {
     //GET request
 
     try {
       const apiurl = `http://${API}/API/api/Order/getcusorders?cid=${global.userId}`;
       const response = await fetch(apiurl);
+   
       const json = await response.json();
       console.log('hiii' + JSON.stringify(json));
       productlist(json);
@@ -24,25 +26,10 @@ const CustomerOrders = () => {
   };
   useEffect(() => {
     getDataUsingGet();
-  }, []);
-  const handledelet = results => {
-    fetch(
-      `http://${API}/API/api/CartItem/Deletecart?id=${results.citem_id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    .then(response => response.json())
-    .then(()=>{
-     setgrandtotal(grandtotal - results.ttl);
-    productlist(result.filter(m => m.citem_id !== results.citem_id));
-    })
-    .catch(err => {
-        alert(err.message);
-      });};
+  }, [counter]);
+  const handledelet = result => {
+    counter=+result;
+   };
    
   const Completelist = () => {
     if (!isloading) {

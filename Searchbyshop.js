@@ -1,12 +1,12 @@
-import {View, Text, TextInput, TouchableOpacity,ActivityIndicator,FlatList,Dimensions, Button} from 'react-native';
-import React,{useState,useEffect} from 'react';
-import styles from './styles';
+import { View, Text,TouchableOpacity, Modal,Pressable,FlatList,ActivityIndicator,StyleSheet,TextInput,Dimensions  } from 'react-native'
+import React,{useState,useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
-import API from '../../API'
 
-import CustomerProductItem from '../../components/CustomerProductItem';
-const CustomerProduct = ({navigation}) => {
-  const [isloading, setloading] = useState(true);
+import { Card, CheckBox } from 'react-native-elements';
+import API from './API'
+import CustomerProductItem from './components/CustomerProductItem';
+const Searchbyshop = () => {
+    const [isloading, setloading] = useState(true);
   const [result, productlist] = useState([{}]);
   const [data, setdata] = useState([{}]);
   let counter=0;
@@ -15,7 +15,7 @@ const CustomerProduct = ({navigation}) => {
   const serchFilter=(text)=>{
     if(text){
       const newData=result.filter((item)=>{
-        const itemData=item.product_name?  item.product_name.toUpperCase()
+        const itemData=item.product_name?  item.sname.toUpperCase()
                 :''.toUpperCase();
         const textData=text.toUpperCase();
         return itemData.indexOf(textData)>-1;
@@ -164,7 +164,7 @@ const CustomerProduct = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           snapToAlignment={'start'}
           decelerationRate={'fast'}
-          
+          // snapToInterval={Dimensions.get('window').height}
           numColumns={2}
           
         />
@@ -175,7 +175,6 @@ const CustomerProduct = ({navigation}) => {
     };
    
 
-    
   return (
     <View>
      {/* header => name */}
@@ -195,46 +194,63 @@ const CustomerProduct = ({navigation}) => {
       <Icon name="search-outline" size={30}></Icon>
      </View>
      <View style={styles.buttoncontainer}>
-      <TouchableOpacity style={styles.button} onPress={handleall}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          All
-        </Text>
-      </TouchableOpacity>
-     
-      <TouchableOpacity style={styles.button} onPress={handlefruit}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          Fruit
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleveg}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          Vegitable
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handlebest}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          Best
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handlebestfruit}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          Best Fruits
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handlebestVegitable}>
-        <Text style={{color:'#fff',fontSize:14}}>
-          Best Vegitable
-        </Text>
-      </TouchableOpacity>
-
+      
      </View>
-     <Button title='Search By Shopkeeper name' onPress={()=>navigation.navigate("Search")}/>
+    
      <View style={styles.flatlistbox}>
      <ProductListview />
      </View>
-   
+     {/* search bar */}
+     {/* All ,New ,Fruit,Vegitable */}
+     {/* item list flat list  =>
+                              image
+                              name
+                              price 
+                              Add To cart
+     */}
+     
     </View>
-  );
-};
+ 
+  )
+}
 
-export default CustomerProduct;
+export default Searchbyshop
+const {width, height} = Dimensions.get('screen');
+const styles = StyleSheet.create({
+
+
+    uppercontainer:{
+        borderColor:'black',
+        backgroundColor:'#fff',
+        borderWidth:1,
+        borderRadius:20,
+        marginHorizontal:10,
+        marginTop:5,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between'
+
+    },
+    textfield:{
+       color:'#000',
+    //    backgroundColor:'red',
+       width:width/1.2
+
+    },
+    buttoncontainer:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        marginHorizontal:10,
+        marginTop:5
+
+    },
+    button:{
+        backgroundColor:'gray',
+        padding:5,
+    },
+    flatlistbox:{
+        height:height/1.5,
+        alignItems:'center'
+    }
+})

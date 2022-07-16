@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './styles';
 import {Card} from 'react-native-shadow-cards';
 import API from '../../API';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import * as RootNavigation  from '../../RootNavigation';
 const ProductItem = (props) => {
   // const p=props.productdata;
@@ -13,10 +15,59 @@ const ProductItem = (props) => {
     productimage,
     product_price,
     product_quantity,  
-    dozen,
-    kg,
+    rating,
   } = props.productdata;
   const imageip = `http://${API}/API/`;
+  const IconData=()=>{
+    if(rating==1){
+      return(
+        <View  style={{flexDirection:'row'}}>
+  <Icon name="star" size={15} color="orange" />
+        </View>
+      
+      )}
+
+      else if(rating==2){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(rating==3){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(rating==4){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(rating==5){
+        return(
+        <View style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else{
+        return(
+          <Text>Not Rated Yet</Text>
+        )
+      }
+    
+  }
   return (
     <Card style={styles.container}>
       <View>
@@ -29,6 +80,7 @@ const ProductItem = (props) => {
         <Text style={{fontWeight: '800', fontSize: 20, color: '#000'}}>
           {product_name}
         </Text>
+        <IconData />
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate('UpdateProduct');
@@ -37,13 +89,7 @@ const ProductItem = (props) => {
           }}  style={styles.editbutton}>
           <Text style={{color:'#fff',fontSize: 18,}}>Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // RootNavigation.navigate('UpdateProduct' );
-          }}
-          style={styles.deletebutton}>
-          <Text style={{color:'#fff',fontSize: 18,}}>Delete</Text>
-        </TouchableOpacity>
+        
       </View>
     </Card>
   );

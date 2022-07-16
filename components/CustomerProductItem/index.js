@@ -16,9 +16,114 @@ const CustomerProductItem = (props) => {
     product_price,
     product_quantity,  
     product_quantitytype,
-    kg,
+    sname,
+    prating,
+    srating
+
   } = props.productdata;
   const imageip = `http://${API}/API/`;
+  const IconData=()=>{
+    if(prating==1){
+      return(
+        <View  style={{flexDirection:'row'}}>
+  <Icon name="star" size={15} color="orange" />
+        </View>
+      
+      )}
+
+      else if(prating==2){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(prating==3){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(prating==4){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(prating==5){
+        return(
+        <View style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else{
+        return(
+          <Text>Not Rated Yet</Text>
+        )
+      }
+    
+  }
+
+  const SHP=()=>{
+    if(srating==1){
+      return(
+        <View  style={{flexDirection:'row'}}>
+  <Icon name="star" size={15} color="orange" />
+        </View>
+      
+      )}
+
+      else if(srating==2){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(srating==3){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(srating==4){
+        return(
+        <View  style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else if(srating==5){
+        return(
+        <View style={{flexDirection:'row'}}>
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+        <Icon name="star" size={15} color="orange" />
+              </View>)
+      }
+      else{
+        return(
+          <Text>Not Rated Yet</Text>
+        )
+      }
+    
+  }
+
   return (
     <Card style={styles.container}>
       <View>
@@ -31,6 +136,7 @@ const CustomerProductItem = (props) => {
         <Text style={{fontWeight: '800', fontSize: 20, color: '#000'}}>
           {product_name.toUpperCase()}
         </Text>
+       <IconData />
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate('UpdateProduct');
@@ -40,7 +146,8 @@ const CustomerProductItem = (props) => {
           }}  style={styles.editbutton}>
           <Text style={{color:'#fff',fontSize: 18,}}> <Icon name="cart-outline" size={30}></Icon></Text>
         </TouchableOpacity>
-       
+       <Text>{sname.toUpperCase()}</Text>
+       <SHP />
       </View>
     </Card>
   );

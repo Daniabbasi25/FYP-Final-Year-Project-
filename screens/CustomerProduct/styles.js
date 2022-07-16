@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         padding:5,
     },
     flatlistbox:{
-        height:height/1.5,
+        height:height/1.7,
         alignItems:'center'
     }
 });

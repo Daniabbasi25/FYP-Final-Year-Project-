@@ -14,6 +14,7 @@ import ProductItem from '../../components/ProductItem';
 // import Product from '../../components/Product';
 // import ProductItem from '../../components/Product';
 import API from '../../API';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Shopkeeperproducts = ({navigation}) => {
   const [isloading, setloading] = useState(true);

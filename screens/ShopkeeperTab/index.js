@@ -42,10 +42,10 @@ const ShopkeeperTab = ({route, navigation}) => {
       <Tab.Screen name="Home" component={ShopKeeperdashboardScreen} />
       <Tab.Screen name="productupload" component={ProductUpload} />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="shopkeeperprofile"
         component={ShopkeeperProfileScreen}
-      />
+      /> */}
     </Tab.Navigator>
     // </UserContext>
   );
